@@ -1,0 +1,60 @@
+package com.francisli.processing.json;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+import java.io.FileInputStream;
+import java.util.ArrayList;
+
+/**
+ * Unit test for simple App.
+ */
+public class JSONParserTest extends TestCase
+{
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    public JSONParserTest(String testName )
+    {
+        super( testName );
+    }
+
+    /**
+     * @return the suite of tests being tested
+     */
+    public static Test suite()
+    {
+        return new TestSuite( JSONParserTest.class );
+    }
+
+    public static class Volume {
+        public String id;
+    }
+
+    public static class Response {
+        public String kind;
+        public long totalItems;
+        public ArrayList<Volume> items;
+    }
+
+    /**
+     * Executes a GET request. TODO: make it into an actual test.
+     */
+    public void testParse()
+    {
+        JSONParser<Response> parser = new JSONParser<Response>() {};
+        try {
+            Response result = parser.parse(new FileInputStream("test.json"));
+            assertEquals("books#volumes", result.kind);
+            assertEquals(1, result.totalItems);
+            assertNotNull(result.items);
+            assertEquals(1, result.items.size());
+            assertEquals("yZ1APgAACAAJ", result.items.get(0).id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
