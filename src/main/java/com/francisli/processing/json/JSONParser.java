@@ -128,7 +128,7 @@ public abstract class JSONParser<T> {
             case org.noggit.JSONParser.OBJECT_START:
                 field = getField(object, keys.pop());
                 if (field != null) {
-                    Object nestedObject = field.getDeclaringClass().newInstance();
+                    Object nestedObject = field.getType().newInstance();
                     parseObject(parser, nestedObject);
                     field.set(object, nestedObject);
                 } else {

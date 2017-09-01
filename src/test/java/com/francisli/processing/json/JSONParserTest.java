@@ -30,8 +30,13 @@ public class JSONParserTest extends TestCase
         return new TestSuite( JSONParserTest.class );
     }
 
+    public static class VolumeInfo {
+        public String title;
+    }
+
     public static class Volume {
         public String id;
+        public VolumeInfo volumeInfo;
     }
 
     public static class Response {
