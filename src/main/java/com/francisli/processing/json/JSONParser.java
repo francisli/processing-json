@@ -1,5 +1,22 @@
+/**
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation, version 3.</p>
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.</p>
+ *
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA  02111-1307  USA
+ *
+ */
 package com.francisli.processing.json;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
@@ -9,6 +26,48 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>The JSONParser class provides the interface for parsing JSON documents
+ * directly into instances of Java classes.</p>
+ *
+ * <p>You start by defining new Java classes with public field variables
+ * representing data you expect. If the JSON data contains nested objects,
+ * you'll need to define additional Java classes for those nested structures.</p>
+ *
+ * <p>Then you'll use some unusual Java syntax to instantiate a parser and get
+ * an instance of your class with the parsed data.</p>
+ *
+ * <p>For example, with data of the form:</p>
+ * <pre>
+ * {
+ *   "id": "ID0001ABC",
+ *   "count": 1234,
+ *   "enabled": true
+ * }
+ * </pre>
+ * <p>You might define a class like this:</p>
+ * <pre>
+ * static class Data {
+ *   public String id;
+ *   public int count;
+ *   public boolean enabled;
+ * }
+ * </pre>
+ * <p>The variable names MUST match the key string names in the data.</p>
+ * <p>Then, you can parse with code like this:</p>
+ * <pre>
+ * JSONParser<Data> parser = new JSONParser<Data>() {}; // IMPORTANT: notice the extra empty braces!
+ * //// assuming you have data in a variable called input (either a String or InputStream)
+ * Data data = parser.parse(input);
+ * println(data.id);
+ * println(data.count);
+ * println(data.enabled);
+ * </pre>
+ *
+ * @author Francis Li
+ * @usage Application
+ * @param parser JSONParser: any variable of type JSONParser
+ */
 public abstract class JSONParser<T> {
 
     T newInstance() {
@@ -32,6 +91,14 @@ public abstract class JSONParser<T> {
         ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
         Type type = superClass.getActualTypeArguments()[0];
         return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
+    }
+
+    public T parse(String s) {
+        try {
+            return parse(new ByteArrayInputStream(s.getBytes("UTF-8")));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public T parse(InputStream is) {

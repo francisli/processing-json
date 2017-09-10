@@ -45,9 +45,17 @@ public class JSONParserTest extends TestCase
         public ArrayList<Volume> items;
     }
 
-    /**
-     * Executes a GET request. TODO: make it into an actual test.
-     */
+    public void testParseString() {
+      JSONParser<Response> parser = new JSONParser<Response>() {};
+      try {
+          Response result = parser.parse("{\"kind\":\"string\",\"totalItems\":2}");
+          assertEquals("string", result.kind);
+          assertEquals(2, result.totalItems);
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+    }
+
     public void testParse()
     {
         JSONParser<Response> parser = new JSONParser<Response>() {};
