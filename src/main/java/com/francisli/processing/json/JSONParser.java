@@ -154,7 +154,12 @@ public abstract class JSONParser<T> {
                 Long longValue = parser.getLong();
                 field = getField(object, keys.pop());
                 if (field != null) {
-                    field.set(object, longValue);
+                    Class<?> clazz = field.getType();
+                    if (Long.class.equals(clazz) || long.class.equals(clazz)) {
+                        field.set(object, longValue);
+                    } else {
+                        field.set(object, longValue.intValue());
+                    }
                 }
                 break;
             case org.noggit.JSONParser.NUMBER:
