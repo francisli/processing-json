@@ -1,0 +1,118 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>JSONParser / JSON</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="Author" content="Francis Li" />
+              <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body id="Library-ref" onload="" >
+
+        <!-- ==================================== PAGE ============================ --> 
+        <div id="container">
+
+            <!-- ==================================== HEADER ============================ --> 
+            <div id="header">
+
+            </div> 
+
+            <a id="TOP" name="TOP"></a>
+
+            <!-- ==================================== CONTENT - Headers ============================ -->
+            <div class="content">
+
+                <span class="lib-nav">
+                    <a href="index.html">Library</a>
+                </span>
+
+                <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
+                    <tr class="name-row">
+                        <th scope="row"><!--*-->Name<!--*--></th>
+                        <td><h3>JSONParser</h3></td>
+                    </tr>
+
+
+                    <tr class="">
+                        <th scope="row"><!--*-->Description<!--*--></th>
+                        <td><p>The JSONParser class provides the interface for parsing JSON documents
+ directly into instances of Java classes.</p>
+
+ <p>You start by defining new static Java classes with public field variables
+ representing data you expect. If the JSON data contains nested objects,
+ you'll need to define additional Java classes for those nested structures.</p>
+
+ <p>Then you'll use some unusual Java syntax to instantiate a parser and get
+ an instance of your class with the parsed data.</p>
+
+ <p>For example, with data of the form:</p>
+ <pre>
+ {
+   "id": "ID0001ABC",
+   "count": 1234,
+   "enabled": true
+ }
+ </pre>
+ <p>You might define a class like this:</p>
+ <pre>
+ static class Data {
+   public String id;
+   public int count;
+   public boolean enabled;
+ }
+ </pre>
+ <p>The variable names MUST match the key string names in the data.</p>
+ <p>Then, you can parse with code like this:</p>
+ <pre>
+ JSONParser&lt;Data&gt; parser = new JSONParser&lt;Data&gt;() {}; // IMPORTANT: notice the extra empty braces!
+ //// assuming you have data in a variable called input (either a String or InputStream)
+ Data data = parser.parse(input);
+ println(data.id);
+ println(data.count);
+ println(data.enabled);
+ </pre></td>
+                    </tr>
+
+
+                    <tr class="">
+                        <th scope="row"><!--*-->Methods<!--*--></th>
+                        <td><table cellpadding="0" cellspacing="0" border="0">
+                                <tr class="">
+                                    <th scope="row"><a href="JSONParser_parse_.html">parse()</a></th>
+                                    <td>Parses the passed in input into an instance of the Java static class
+ that was specified in the initialization of the parser.</td>
+                                </tr>
+                            </table></td>
+                    </tr>
+
+                    <tr class="">
+                        <th scope="row"><!--*-->Constructor<!--*--></th>
+                        <td><pre>JSONParser()
+</pre></td>
+                    </tr>
+
+
+                    <tr class="">
+                        <th scope="row"><!--*-->Usage<!--*--></th>
+                        <td>Application</td>
+                    </tr>
+                </table>
+
+                Updated on Sat Sep 09 22:36:52 PDT 2017<br /><br />
+
+                <!-- Creative Commons License -->
+
+                <div class="license">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.gif" /></a>
+                </div>
+
+            </div>
+
+            <!-- ==================================== FOOTER ============================ --> 
+            <div id="footer">
+
+            </div>
+
+        </div>
+    </body>
+</html>
