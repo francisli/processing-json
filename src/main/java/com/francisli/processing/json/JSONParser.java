@@ -30,7 +30,7 @@ import java.util.List;
  * <p>The JSONParser class provides the interface for parsing JSON documents
  * directly into instances of Java classes.</p>
  *
- * <p>You start by defining new Java classes with public field variables
+ * <p>You start by defining new static Java classes with public field variables
  * representing data you expect. If the JSON data contains nested objects,
  * you'll need to define additional Java classes for those nested structures.</p>
  *
@@ -56,7 +56,7 @@ import java.util.List;
  * <p>The variable names MUST match the key string names in the data.</p>
  * <p>Then, you can parse with code like this:</p>
  * <pre>
- * JSONParser<Data> parser = new JSONParser<Data>() {}; // IMPORTANT: notice the extra empty braces!
+ * JSONParser&lt;Data&gt; parser = new JSONParser&lt;Data&gt;() {}; // IMPORTANT: notice the extra empty braces!
  * //// assuming you have data in a variable called input (either a String or InputStream)
  * Data data = parser.parse(input);
  * println(data.id);
@@ -93,6 +93,13 @@ public abstract class JSONParser<T> {
         return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
     }
 
+    /** Parses the passed in input into an instance of the Java static class
+     * that was specified in the initialization of the parser.
+     *
+     * @param s String
+     * @param is InputStream
+     * @return an instance of the class specified in the initialization of the parser.
+     */
     public T parse(String s) {
         try {
             return parse(new ByteArrayInputStream(s.getBytes("UTF-8")));
